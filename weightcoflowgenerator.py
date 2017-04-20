@@ -2,6 +2,7 @@
 
 import random
 import math
+import numpy
 
 TOTAL=200
 RACKS=50
@@ -277,7 +278,57 @@ def generateLength(file,minlength,maxlength):
 
 
 
-
+def generateLengthVariance(file,average,variancecoflow,varianceflow):
+	f=open(file,"r")
+	desfile=open(str(average)+"-"+str(variancecoflow)+"-"+str(varianceflow)+".tr","a+")
+	totaline=f.readlines()
+	f.close()
+	index=0
+	rarray=numpy.random.normal(average,variancecoflow,TOTAL)
+	
+	for line in totaline:
+		line=line.strip()
+		if index==0:
+			desfile.write(line+"\n")
+			#get the number of jobs
+			index+=1
+			continue
+		arrayline=line.split()
+		jobname=arrayline[0]
+		desfile.write(jobname+" ")
+		weight=int(arrayline[1])
+		desfile.write(str(weight)+" ")
+		start=int(arrayline[2])
+		desfile.write(str(start)+ " ")
+		mappernumber=int(arrayline[3])
+		desfile.write(str(mappernumber)+" ")
+		mappers=[]
+		for i in range(0,mappernumber):
+			desfile.write(arrayline[4+i]+" ")
+			mappers.append(arrayline[4+i])
+		reducenumber=int(arrayline[4+mappernumber])
+		desfile.write(str(reducenumber)+" ")
+		#print reducenumber
+		reduces=[]
+		#set length according to the array value
+		if rarray[index-1] <=0:
+			rarray[index-1]=0
+		lengthrange=rarray[index-1]
+		flowlength=numpy.random.normal(lengthrange,varianceflow,reducenumber)
+		for i in range(0,reducenumber):
+			reduce= arrayline[4+mappernumber+1+i]
+			reduceposition=reduce.split(':')[0]
+			reducelength=(int)(reduce.split(':')[1])
+			if flowlength[i] <=0:
+				flowlength[i]=1
+			shufflebytes=int(flowlength[i])*mappernumber
+			reduces.append(reduceposition+":"+str(shufflebytes))
+			desfile.write(reduceposition+":"+str(shufflebytes)+" ")
+		index+=1
+		desfile.write("\n")
+	desfile.close()
+	
+	
 
 
 
@@ -411,6 +462,74 @@ def generateWeightReal(file,jobnumber,weightSet):
 	desfile.close()
 
 
+# generate weight according to different weight variance
+# the exceptation is that, larger variance , better
+def generateWeightVariance(file,weightaverage,weightvariance):
+	f=open(file,"r")
+	desfile=open(str(weightaverage)+"-"+str(weightvariance)+"-REAL.tr","a+")
+	totaline=f.readlines()
+	f.close()
+	index=0
+
+	rarray=numpy.random.normal(weightaverage,weightvariance,527)
+
+
+
+	for line in totaline:
+		line=line.strip()
+		if index==0:
+			index+=1
+			#get number of the job
+			desfile.write(line+"\n")
+			continue
+
+		index+=1
+		arrayline=line.split()
+		jobname=arrayline[0]
+		weight=1
+		start=int(arrayline[2])
+		mappernumber=int(arrayline[3])
+		mappers=[]
+
+
+		for i in range(0,mappernumber):
+			mappers.append(arrayline[4+i])
+
+		reducenumber=int(arrayline[4+mappernumber])
+		reduces=[]
+		maxlength=0
+		for i in range(0,reducenumber):
+			reduce= arrayline[4+mappernumber+1+i]
+			reduceposition=reduce.split(':')[0]
+			reducelength=(float)(reduce.split(':')[1])
+			if reducelength > maxlength:
+				maxlength=reducelength
+			reduces.append(reduce)
+
+
+
+
+		#set weight according to maxlength
+		if rarray[index-1] <=0:
+			weight=1
+		else:
+			weight=rarray[index-1]
+
+
+		desfile.write(jobname+" ")
+		desfile.write(str(weight)+" ")
+		desfile.write(str(start)+ " ")
+		desfile.write(str(mappernumber)+" ")
+		for i in range(0,mappernumber):
+			desfile.write(mappers[i]+" ")
+		desfile.write(str(reducenumber)+" ")
+		for i in range(0,reducenumber):
+			desfile.write(reduces[i]+" ")
+		desfile.write("\n")
+	desfile.close()
+
+
+
 
 
 
@@ -461,6 +580,14 @@ def generateWeight(file,MAXWEIGHT):
 
 
 if __name__ == "__main__":
+	for i in range(0,10):
+		variance=100+500*i
+		avarage=20
+		generateWeightVariance("FB2010-weight0.txt",avarage,variance)
+	# for i in range(0,10):
+	# 	variancecoflow=100+500*i
+	# 	generateLengthVariance("10-200.tr",400, variancecoflow,1000)
+# 		generateLength("10.tr",10,maxlength)
 	#generateWeightSpecial("FB2010-weight0.txt",200)
 	#generateLengthTrace("test.txt",50,1000,[12,88])]
 
@@ -469,8 +596,8 @@ if __name__ == "__main__":
 	# 	filename=str(i)+".tr"
 	# 	generateWidthFactor(filename,20,i，60)
 	# 	i+=5
-	for i in range(2,10):
-		generateWeightReal("FB2010-weight0.txt",i,8)
+# 	for i in range(2,10):
+# 		generateWeightReal("FB2010-weight0.txt",i,8)
 	# i=10
 	# while i < 60:
 	# 	filename=str(i)+".tr"
@@ -482,9 +609,9 @@ if __name__ == "__main__":
 	# 	filename=str(i)+".tr"
 	# 	generateWidth(filename,30,i)
 	# 	i+=5
-	# for i in range(0,17):
-	# 	maxlength=200+50*i
-	# 	generateLength("10.tr",10,maxlength)
+# 	for i in range(0,17):
+# 		maxlength=200+50*i
+# 		generateLength("10.tr",10,maxlength)
 	# i=5
 	# while i <=95:
 	# 	filename=str(i)+".tr"

@@ -616,7 +616,7 @@ public class CoflowSimulator extends Simulator {
 			if(load[jobindex][rack]<=Constants.ZERO)
 				continue;
 			
-			System.out.println(load[jobindex][rack]);
+			//System.out.println(load[jobindex][rack]);
 			
 			double factor = (weight[jobindex]) / (double) (load[jobindex][rack]);
 			if (factor < minfactor) {

@@ -91,7 +91,7 @@ public class Job implements Comparable<Job> {
     
     Random random = new Random(jobID+10);//指定种子数字
   
-    this.weight=random.nextInt(3)+1;
+    this.weight=(this.jobID+1)%3+1;
     
     
     resetJobStates();

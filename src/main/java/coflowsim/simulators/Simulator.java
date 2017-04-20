@@ -273,6 +273,8 @@ public abstract class Simulator {
 		int ignoreCount = 0;
 		int metDeadlineCount = 0;
 		double weightsumDur = 0;
+		
+		double wc=0;
 
 		for (Job j : jobs) {
 			if (ignoreThisJob(j)) {
@@ -282,7 +284,7 @@ public abstract class Simulator {
 			double jDur = j.getSimulatedDuration();
 			sumDur += jDur;
 			weightsumDur += j.weight * jDur;
-
+			wc+=j.weight*j.simulatedFinishTime;
 			if (j.wasAdmitted) {
 				admitCount++;
 			} else {
@@ -317,6 +319,7 @@ public abstract class Simulator {
 			bufferedWriter.write(weightsumDur+"");
 			System.out.println(sumDur);
 			System.out.println(weightsumDur);
+			System.out.println(wc);
 			if (considerDeadline) {
 				System.out.println(metDeadlineCount + "/" + admitCount + " " + ignoreCount);
 			}
