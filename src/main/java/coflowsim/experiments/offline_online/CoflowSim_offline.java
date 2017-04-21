@@ -19,7 +19,7 @@ public class CoflowSim_offline {
 
 	public static void main(String[] args) {
 
-		if (args.length <= 3) {
+		if (args.length < 3) {
 			System.out.println(
 					"usage java -cp target/coflowsim-0.2.0-SNAPSHOT.jar coflowsim.experiments.offline_online.CoflowSim_offline tracepath destipath off(or on)");
 
@@ -28,11 +28,11 @@ public class CoflowSim_offline {
 		int curArg = 0;
 		SHARING_ALGO sharingAlgo = SHARING_ALGO.WEIGHT;
 
-		if (args[2] == "off") {
+		if (args[2].equals("off")) {
 			sharingAlgo = SHARING_ALGO.WEIGHTOFFLINE;
 			System.out.println("set offline");
 		} else {
-			sharingAlgo = SHARING_ALGO.WEIGHTOFFLINE;
+			sharingAlgo = SHARING_ALGO.WEIGHT;
 			System.out.println("set online");
 		}
 
@@ -55,7 +55,7 @@ public class CoflowSim_offline {
 		nlpl.simulate(simulationTimestep);
 
 		try {
-			nlpl.printStats(true, args[2]);
+			nlpl.printStats(true, args[1]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

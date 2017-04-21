@@ -129,7 +129,7 @@ public class Constants {
   /**
    * max concurrent job number default 30
    */
-  public static final int MAXJOBS=300;
+  public static final int MAXJOBS=600;
   
   
   /**
