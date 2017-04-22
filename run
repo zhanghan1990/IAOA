@@ -5,7 +5,7 @@ FWDIR="$(cd `dirname $0`; pwd)"
 
 # Export this as Yosemite_HOME
 export YOSEMITE_HOME="$FWDIR"
-RUNNER="${JAVA_HOME}/bin/java"
+RUNNER=java
 
 if [ -z "$YOSEMITE_MEM" ] ; then
   YOSEMITE_MEM="512m"
