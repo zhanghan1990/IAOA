@@ -11,37 +11,9 @@ font = {'family' : 'normal', 'weight' : 'bold', 'size' : 15 }
 
 matplotlib.rc('font', **font)
 
-NIC=1000.0 #1G
-
-class flow:
-	def __init__(self,id,size,src,dst):
-		self.id=id
-		self.size=size
-		self.src=src
-		self.dst=dst
 
 
-class coflow:
-    def __init__(self,id,weight=1.0):
-        self.id =id
-        self.weight=weight
-        self.size = 10     
-        self.flowlist = []
 
-    def addFlow(flow):
-    	self.flowlist.add(flow)
-
-    def computefinish(self):
-    	maxtime=0
-    	for flow in self.flowlist:
-    		flowtime=float(flow.size)/float(NIC)
-    		if flowtime > maxtime:
-    			maxtime=flowtime
-    	self.finishtime=maxtime
-
-def genrateCoflwo(int n):
-	for i in range(0,n):
-		
 def frac(v,x):
 	n=0
 	for i in v:
@@ -74,8 +46,12 @@ while line:
 fonline.close()
 
 
-fig, ax = plt.subplots()
 
+
+
+
+
+fig, ax = plt.subplots()
 x = np.linspace(0, 5000, 100)
 ax.spines['right'].set_color('none')
 ax.spines['top'].set_color('none')

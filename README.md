@@ -1,19 +1,32 @@
-## YosemiteSim README
+# YosemiteSim README
 This is the simulator of Yosemite,Yosemite tries to minimize coflow weight completion time, Thanks to Varys, we borrow many codes from them.
 
-# How to compile and use
+##  How to compile and use
  We use maven to construct the project, compile the project:
- - maven compile
- - maven package
- - In the following experiment, just replace Yourpath to the path that in your computer
+ - mvn compile
+ - mvn package
  
-# ex1: Compare the performance of online and offline algorithm
+To clean your project:
+- mvn clean
+ 
+## ex1: Compare the performance of online and offline algorithm
 
-- java -cp target/coflowsim-0.2.0-SNAPSHOT.jar coflowsim.experiments.offline_online.CoflowSim_offline Yourpath/5.tr Yourpath/5.off  off
+- ./run coflowsim.experiments.offline_online.CoflowSim_offline trace-tr dest-dr on
+- ./run coflowsim.experiments.offline_online.CoflowSim_offline trace-tr dest-dr off
 
 
-- java -cp target/coflowsim-0.2.0-SNAPSHOT.jar coflowsim.experiments.offline_online.CoflowSim_offline Yourpath/5.tr Yourpath/5.on  on
+on is online-algorithm and off is offline algorithm. The dest-dr will include the trace we will analyze
 
-# ex2: Use facebook trace to compare the performance of Yosemite and Varys and Barrat
+## ex2: Use facebook trace to compare the performance of Yosemite,Varys and Barrat
 
 
+- ./run coflowsim.experiments.real.CoflowSim_Traffic Barrat trace/real/8-300-REAL.tr trace/real/Barrat
+ - ./run coflowsim.experiments.real.CoflowSim_Traffic Varys trace/real/8-300-REAL.tr trace/real/Varys  
+  
+ - ./run coflowsim.experiments.real.CoflowSim_Traffic Yosemite trace/real/8-300-REAL.tr trace/real/Yosemite
+
+ - ./run coflowsim.experiments.real.CoflowSim_Traffic pFabric trace/real/8-300-REAL.tr trace/real/pFabric
+ 
+  - ./run coflowsim.experiments.real.CoflowSim_Traffic FAIR trace/real/8-300-REAL.tr trace/real/FAIR
+ 
+- If you want to generate other trace, just run python generatetraffic.py
