@@ -30,3 +30,5 @@ on is online-algorithm and off is offline algorithm. The dest-dr will include th
   - ./run coflowsim.experiments.real.CoflowSim_Traffic FAIR trace/real/8-300-REAL.tr trace/real/FAIR
  
 - If you want to generate other trace, just run python generatetraffic.py
+
+## ex3: The impacts of coflow length
