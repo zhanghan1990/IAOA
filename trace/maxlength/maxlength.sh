@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 TYPE=$1
 for((i=200;i<1000;i+=50));
 	do
