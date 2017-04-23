@@ -32,3 +32,9 @@ on is online-algorithm and off is offline algorithm. The dest-dr will include th
 - If you want to generate other trace, just run python generatetraffic.py
 
 ## ex3: The impacts of coflow length
+- To generate the trace you want to run ,just cd to trace/maxlength and run python weightcoflowgenerator.py
+- ./maxlength.py Yosemite(or Varys, Barrat,FAIR) to run the experiment
+
+## ex4: The impacts of coflow width
+- To generate the trace you want to run ,just cd to trace/width and run python weightcoflowgenerator.py
+- ./maxlength.py Yosemite(or Varys, Barrat,FAIR) to run the experiment
