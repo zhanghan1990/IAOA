@@ -73,14 +73,14 @@ def getPercentageResult(path,percentage):
 				width=mappers
 
 			if maxshuffle < SHORT and width < NARROW:
-				wc1.append(weight*duration)
+				wc1.append(duration)
 				
 			elif maxshuffle >= SHORT and width < NARROW:
-				wc2.append(weight*duration)
+				wc2.append(duration)
 			elif maxshuffle < SHORT and width > NARROW:
-				wc3.append(weight*duration)
+				wc3.append(duration)
 			else:
-				wc4.append(weight*duration)
+				wc4.append(duration)
 				
 	#wc=wc1+wc2+wc3+wc4
 	f.close()
@@ -138,7 +138,7 @@ def getWcResult(path):
 			shufflesum=float(arrayline[9])
 			weight=float(arrayline[10])
 			width=mappers
-			wc.append(weight*duration/1000)
+			wc.append(duration/1000)
 	f.close()
 	return wc
 
@@ -179,16 +179,16 @@ def getResult(path):
 				else:
 					width=mappers
 				if maxshuffle < SHORT and width < NARROW:
-					wc1+=weight*duration
+					wc1+=duration
 					bin1+=1
 				elif maxshuffle >= SHORT and width < NARROW:
-					wc2+=weight*duration
+					wc2+=duration
 					bin2+=1
 				elif maxshuffle < SHORT and width > NARROW:
-					wc3+=weight*duration
+					wc3+=duration
 					bin3+=1
 				else:
-					wc4+=weight*duration
+					wc4+=duration
 					bin4+=1
 		wc=wc1+wc2+wc3+wc4
 		f.close()
@@ -257,32 +257,27 @@ if __name__=='__main__':
 	N=5
 	ind = np.arange(N)  # the x locations for the groups
 	width = 0.1       # the width of the bars
-	fig, ax = plt.subplots(figsize=(12,6))
+	fig, ax = plt.subplots()
 	rects1 = ax.bar(ind, BarratResult, width, hatch="+",color='r',ecolor='k')
 	rects2 = ax.bar(ind+width, DarkResult, width, hatch="+",color='g',ecolor='k')
 	rects3 = ax.bar(ind+2*width, VarysResult, width, hatch='-',color='white',ecolor='k')
 	rects4 = ax.bar(ind+3*width, YosemiteResult, width, hatch='+',color='k',ecolor='k')
 
-	rects5 = ax.bar(ind+4*width, percentageBarratResult, width, hatch="+",color='#FF7256',ecolor='k')
-	rects6 = ax.bar(ind+5*width, percentageDarkResult, width, hatch="+",color='#00FF00',ecolor='k')
-	rects7 = ax.bar(ind+6*width, percentageVarysResult, width, hatch='-',color='#EEE9E9',ecolor='k')
-	rects8=ax.bar(ind+7*width, percentageYosemiteResult, width, hatch='+',color='#696969',ecolor='k')
-
 	ax.set_xticks(ind+width)
 	ax.set_xticklabels(('SHORT & NARROW','LONG & NARROW','SHORT & WIDTH','LONG & WIDTH','ALL'))
-	ax.legend((rects1[0],rects2[0],rects3[0],rects4[0],rects5[0],rects6[0],rects7[0],rects8[0]), ('Barrat','Aalo','Vary','Yosemite','Barrat(95th)','Aalo(95th)','Vary(95th)','Yosemite(95th)'),loc=0)
+	ax.legend((rects1[0],rects2[0],rects3[0],rects4[0]), ('Barrat','Aalo','Vary','Yosemite'),loc=0)
 	ax.set_ylabel('Factor of Improvement',fontsize=12,fontweight='bold')
-	ax.set_ylim([0,5])
+	ax.set_ylim([0,3])
 	ax.set_xlabel('coflow types',fontsize=12,fontweight='bold')
 	#plt.figure(figsize=(12,3))
 	#plt.show()
-	fig.savefig("weight_real_type.eps")
+	fig.savefig("real_type.eps")
 
 
 
 	fig, ax = plt.subplots(figsize=(4.5,6))
 
-	x = np.linspace(0, 1000, 10)
+	x = np.linspace(0, 400, 5)
 	Yosemitewc=getWcResult(Yosemite)
 	Varyswc=getWcResult(Varys)
 	Fairwc=getWcResult(Fair)
@@ -313,7 +308,7 @@ if __name__=='__main__':
 	
 	ax.legend(loc='lower right')
 	plt.ylabel('CDF',fontsize=12,fontweight='bold')
-	plt.xlabel('weight completion time(s)',fontsize=12,fontweight='bold')
+	plt.xlabel('coflow completion time(s)',fontsize=12,fontweight='bold')
 	plt.show()
-	fig.savefig("weight_CDF_compare.eps")
+	fig.savefig("CDF_compare.eps")
 

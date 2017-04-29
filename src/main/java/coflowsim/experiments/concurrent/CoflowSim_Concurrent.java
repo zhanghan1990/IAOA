@@ -1,4 +1,4 @@
-package coflowsim.experiments.weight;
+package coflowsim.experiments.concurrent;
 import java.io.File;
 import java.io.IOException;
 import coflowsim.datastructures.Job;
@@ -11,12 +11,12 @@ import coflowsim.traceproducers.TraceProducer;
 import coflowsim.utils.Constants;
 import coflowsim.utils.Constants.SHARING_ALGO;
 
-public class CoflowSim_Weight {
+public class CoflowSim_Concurrent {
 	public static void main(String[] args) {
 
 		if (args.length < 3) {
 			System.out.println(
-					"usage./run coflowsim coflowsim.experiments.weight.CoflowSim_Weight type tracepath destipath");
+					"usage./run coflowsim coflowsim.experiments.concurrent.CoflowSim_Concurrent type tracepath destipath");
 
 			System.exit(1);
 		}

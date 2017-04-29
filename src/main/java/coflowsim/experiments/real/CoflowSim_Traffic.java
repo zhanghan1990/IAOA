@@ -46,6 +46,10 @@ public class CoflowSim_Traffic {
 			System.out.println("Select pFabric");
 			sharingAlgo=SHARING_ALGO.PFP;
 		}
+		else if(args[0].equals("DARK")){
+			System.out.println("Select DARK");
+			sharingAlgo=SHARING_ALGO.DARK;
+		}
 		
 		boolean isOffline = false;
 		int simulationTimestep = 10 * Constants.SIMULATION_SECOND_MILLIS;
@@ -71,6 +75,10 @@ public class CoflowSim_Traffic {
 		else if(args[0].equals("pFabric") || args[0].equals("FAIR")){
 			nlpl= new FlowSimulator(sharingAlgo, traceProducer, isOffline, considerDeadline, deadlineMultRandomFactor);
 			System.out.println("Select flow simulator");
+		}
+		else if(args[0].equals("DARK")){
+			nlpl= new CoflowSimulatorDark(sharingAlgo, traceProducer);
+			System.out.println("Select DARK Simulator");
 		}
 		else{
 			System.out.println("Wrong parameters,only Yosemite,Varys,Barrat,pFabric,FAIR are supported");
