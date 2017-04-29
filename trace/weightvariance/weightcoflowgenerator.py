@@ -104,6 +104,6 @@ def generateWeightVariance(file,weightaverage,weightvariance):
 
 if __name__ == "__main__":
 	for i in range(0,10):
-		variance=100+500*i
-		avarage=20
+		variance=1+i
+		avarage=11
 		generateWeightVariance("FB2010-weight0.txt",avarage,variance)
