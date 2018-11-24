@@ -1,5 +1,5 @@
-# YosemiteSim README
-This is the simulator of Yosemite,Yosemite tries to minimize coflow weight completion time, Thanks to Varys, we borrow many codes from them.
+# IAOA README
+This is the simulator of IAOA,IAOA tries to minimize coflow weight completion time, Thanks to Varys, we borrow many codes from them.
 
 #### How to compile and use
  We use maven to construct the project, compile the project:
